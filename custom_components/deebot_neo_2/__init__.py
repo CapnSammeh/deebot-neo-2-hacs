@@ -16,7 +16,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady
 
 from . import q287s6_app, q287s6_profile
-from .const import CONF_DEVICE_DID, DOMAIN, PLATFORMS, SUPPORTED_DEVICE_CLASS
+from .const import CONF_DEVICE_DID, CONF_DEVICE_ID, DOMAIN, PLATFORMS, SUPPORTED_DEVICE_CLASS
 
 _LOGGER = logging.getLogger(__name__)
 

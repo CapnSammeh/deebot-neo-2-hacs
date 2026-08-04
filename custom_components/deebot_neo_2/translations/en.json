@@ -13,6 +13,13 @@
           "username": "Enter the same email address you use in the Ecovacs Home app."
         }
       },
+      "device_verification": {
+        "title": "Device verification",
+        "description": "Ecovacs requires device verification for new logins. Check your email ({username}) for a verification code and enter it below.",
+        "data": {
+          "verification_code": "Verification code"
+        }
+      },
       "select_device": {
         "title": "Select vacuum",
         "description": "Choose the DEEBOT NEO 2 vacuum to add.",
@@ -24,6 +31,8 @@
     "error": {
       "cannot_connect": "Cannot connect to Ecovacs. Check your network, account region, and try again.",
       "invalid_auth": "Invalid Ecovacs account details.",
+      "invalid_verification_code": "Invalid verification code. Check your email and try again.",
+      "device_verification_required": "Device verification is still required. Please enter the code sent to your email.",
       "no_supported_vacuums": "No supported DEEBOT NEO 2.0 / NEO 2.0 PLUS q287s6 vacuum was found on this account.",
       "unknown": "Unexpected error. Check Home Assistant logs for details."
     },
