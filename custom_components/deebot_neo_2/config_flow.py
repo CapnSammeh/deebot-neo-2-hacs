@@ -30,12 +30,12 @@ from .const import (
     CONF_DEVICE_RESOURCE,
     CONF_VERIFICATION_CODE,
     DOMAIN,
-    SUPPORTED_DEVICE_CLASS,
+    SUPPORTED_DEVICE_CLASSES,
 )
 
 _LOGGER = logging.getLogger(__name__)
 
-NEO_2_LOGIC_ID = "y30plus_ww_h_y30h5"
+NEO_2_LOGIC_IDS = {"y30plus_ww_h_y30h5", "y30_ww_h_y30h5"}
 
 
 def _device_label(info: dict[str, Any]) -> str:
@@ -49,9 +49,9 @@ def _device_api_info(device: Any) -> dict[str, Any]:
 def _is_supported_neo_2(info: dict[str, Any]) -> bool:
     device_name = str(info.get("deviceName") or "")
     return (
-        info.get("class") == SUPPORTED_DEVICE_CLASS
+        info.get("class") in SUPPORTED_DEVICE_CLASSES
         or "NEO 2.0" in device_name
-        or info.get("UILogicId") == NEO_2_LOGIC_ID
+        or info.get("UILogicId") in NEO_2_LOGIC_IDS
     )
 
 

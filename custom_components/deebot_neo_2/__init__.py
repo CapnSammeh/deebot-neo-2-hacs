@@ -16,17 +16,20 @@ from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady
 
 from . import q287s6_app, q287s6_profile
-from .const import CONF_DEVICE_DID, CONF_DEVICE_ID, DOMAIN, PLATFORMS, SUPPORTED_DEVICE_CLASS
+from .const import CONF_DEVICE_DID, CONF_DEVICE_ID, DOMAIN, PLATFORMS, SUPPORTED_DEVICE_CLASSES
 
 _LOGGER = logging.getLogger(__name__)
 
 
 def _patch_deebot_client() -> None:
-    """Expose q287s6 support to deebot_client before devices initialize."""
+    """Expose q287s6 and eyfj07 support to deebot_client before devices initialize."""
     sys.modules.setdefault("deebot_client.commands.json.q287s6_app", q287s6_app)
     sys.modules.setdefault("deebot_client.hardware.q287s6", q287s6_profile)
+    sys.modules.setdefault("deebot_client.commands.json.eyfj07_app", q287s6_app)
+    sys.modules.setdefault("deebot_client.hardware.eyfj07", q287s6_profile)
     if not_found := getattr(deebot_hardware, "_NOT_FOUND", None):
-        not_found.discard(SUPPORTED_DEVICE_CLASS)
+        for cls in SUPPORTED_DEVICE_CLASSES:
+            not_found.discard(cls)
 
 
 class Neo2Controller(EcovacsController):
@@ -44,7 +47,7 @@ class Neo2Controller(EcovacsController):
         selected_did = self._config.get(CONF_DEVICE_DID)
         selected_devices: list[Device] = []
         for device in self._devices:
-            if device.device_info.get("class") == SUPPORTED_DEVICE_CLASS and (
+            if device.device_info.get("class") in SUPPORTED_DEVICE_CLASSES and (
                 selected_did is None or device.device_info.get("did") == selected_did
             ):
                 selected_devices.append(device)
